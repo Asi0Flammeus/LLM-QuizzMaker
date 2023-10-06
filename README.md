@@ -1,7 +1,6 @@
-# LLM-Translator
+# LLM-QuizzMaker
 
-LLM-Translator is a comprehensive tool designed to transcribe audio files utilizing OpenAI's Whisper API and subsequently manipulate the generated transcript through OpenAI's GPT-3.5 API. Additionally, the project offers the capability to translate the transcript into various languages utilizing GPT-3.5.
-
+LLM-QuizzMaker is a tool designed to create quizz in yaml file based on a course written in markdown utilizing OpenAI's GPT-4 API. 
 ## Installation and Setup 
 
 ### Prerequisites
@@ -9,7 +8,7 @@ LLM-Translator is a comprehensive tool designed to transcribe audio files utiliz
 Before utilizing this tool, ensure that you have an OpenAI account and an OpenAI [API key](https://beta.openai.com/docs/api-reference/introduction) and to follow the installation procedure. 
 #### Installation for Linux Users
 
-LLM-Translator has been successfully tested on Ubuntu 20.04. 
+LLM-QuizzMaker has been successfully tested on Ubuntu 20.04. 
 
 0. **Open a Terminal** 
 1. **Check that Python 3 and git are installed**
@@ -77,7 +76,7 @@ By default, Python 3 and git are not already installed on Windows so I will also
 6. **Install Required Libraries**:  
    - `pip install -r requirements.txt`
 
-## LLM-Translator Usage
+## LLM-QuizzMaker Usage
 
 Please follow these steps *each time* you want to run LLM-Translator:
 
@@ -102,17 +101,9 @@ Please follow these steps *each time* you want to run LLM-Translator:
 4. **Follow the On-screen Instructions** 
    
 
-**Note**: Translations will be automatically stored in an associated subfolder into the `/outputs/` folder. 
+**Note**: Quizzes will be automatically stored in an associated subfolder into the `/outputs/` folder. 
 **Note 2:** A better installation process will be done soon™ with executable files for windows and linux.
 
-## Roadmap
-
-- [X] Language Selection
-- [X] Improved Output Organization
-- [ ] Comprehensive Testing and Continuous Integration
-- [ ] Integration with ChatGPT-4 Model
-- [ ] Development of a User-Friendly GUI
-- [ ] Integration with Additional LLM Models
 
 ## Contributing
 
