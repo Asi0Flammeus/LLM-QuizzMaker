@@ -1,0 +1,10 @@
+{
+  "Course": "BTC101",
+  "Chapter": "La Prehistoria de Bitcoin",
+  "Difficulty": "fácil",
+  "Index": 4,
+  "Question": "¿En qué fecha se lanzó el protocolo de Bitcoin?",
+  "Option": ["25 de diciembre de 2008", "1 de enero de 2009", "3 de enero de 2009", "11 de febrero de 2009"],
+  "Answer": 2,
+  "Reviewed": "false"
+}

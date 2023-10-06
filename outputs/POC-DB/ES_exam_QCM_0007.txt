@@ -1,0 +1,10 @@
+{
+  "Course": "BTC101",
+  "Chapter": "La Prehistoria de Bitcoin",
+  "Difficulty": "media",
+  "Index": 7,
+  "Question": "¿Cuál de los siguientes no es un nivel en el que Bitcoin representa una revolución?",
+  "Options": ["Digital", "Tecnológico", "Entretenimiento", "Financiero"],
+  "Answer": 2,
+  "Reviewed": "false"
+}

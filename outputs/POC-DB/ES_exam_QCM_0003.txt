@@ -1,0 +1,10 @@
+{
+  "Course": "BTC101",
+  "Chapter": "La Prehistoria de Bitcoin",
+  "Difficulty": "fácil",
+  "Index": 3,
+  "Question": "¿A qué contribuyeron mayormente los ciberpunks?",
+  "Options": ["Gadgets electrónicos", "Privacidad digital y criptografía", "Arte digital", "Juegos en línea"],
+  "Answer": 1,
+  "Reviewed": "falso"
+}

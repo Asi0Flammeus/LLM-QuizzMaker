@@ -1,0 +1,10 @@
+{
+  "Course": "BTC101",
+  "Chapter": "La Prehistoria de Bitcoin",
+  "Difficulty": "fácil",
+  "Index": 2,
+  "Question": "¿Cuál es el seudónimo de la persona o grupo que presentó el libro blanco de Bitcoin?",
+  "Options": ["Hal Finney", "David Chaum", "Satoshi Nakamoto", "Adam Back"],
+  "Answer": 0,
+  "Reviewed": "false"
+}
