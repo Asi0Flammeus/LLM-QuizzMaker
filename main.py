@@ -2,10 +2,10 @@ from controller import Controller
 from view import ViewCLI
 
 def main():
-    view = ViewCLI([])
+    view = ViewCLI()
     while True:
         controller = Controller()
-        controller.translate_the_folder()
+        controller.create_course_based_quizzes()
 
         if view.user_request_stop():
             break

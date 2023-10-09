@@ -5,43 +5,56 @@ import tiktoken
 from dotenv import load_dotenv
 from openai.error import RateLimitError, Timeout, APIError, ServiceUnavailableError
 
-class OpenaiTranslationModel:
+class OpenaiQuizzMakerModel:
     """
-    This class provide the methods for using a LLM specifically for translation.
+    This class provide the methods for using a LLM specifically for Quizz Creation.
     """
-    def __init__(self, text_to_translate, supported_languages_instance):
-        self.text_to_translate = TextToTranslate(text_to_translate)
-        self.supported_languages_instance = supported_languages_instance
+    def __init__(self):
 
+        yml_quizzes = ""
         load_dotenv()
         openai.api_key = os.getenv("OPENAI_API_KEY")
-        self.model_engine = "gpt-3.5-turbo"
+        self.model_engine = "gpt-4"
         self.error_handler = APIErrorHandler()
 
-        self.prompt = ""
+        self.pre_prompt = ("""
+                You MUST Craft 12 multiple-choice questions (MCQs) based strictly on the content of the provided chapter from a bitcoin-only lecture.
+                Ensure the following:
+
+                - Division into three difficulty tiers: easy, intermediate, and hard, with 4 MCQs in each tier.
+                - Adherence to the template without code blocks:
+                  difficulty: [level]
+                  duration: [time in seconds, typically between 15-45]
+                  question: [base the question on the chapter's content]
+                  answer: [correct answer to the question]
+                  wrong_answers:
+                    - [wrong_answer1]
+                    - [wrong_answer2]
+                    - [wrong_answer3]
+                  explanation: >-
+                    [brief answer justification, possibly with external references]
+                  tags:
+                    - [specific tag relevant to the question]
+                    - [another relevant tag]
+                    - [optional third relevant tag]
+                - Ensure every MCQ is distinct and directly tied to the chapter's content, designed specifically to enhance the student's comprehension and foster growth in the subject
+                - Hard questions can delve into highly technical aspects of the topic.
+                - Don't say according to the text.
+                - Create only MCQs that can be answered with the provided chapter
+                - Use "===" to separate each quiz.
+
+                current_chapter_text = \n
+        """)
+
         self.temperature = 0.1
 
-    def get_translated_text_from_to(self, origin_language, destination_language):
-        self.update_prompt_for_destination_language(destination_language)
-        translated_chunks = []
-        NUM_CHUNKS = len(self.text_to_translate.chunks)
-        for i, chunk in enumerate(self.text_to_translate.chunks):
-            translated_chunk = self.translate_a_single(chunk)
-            translated_chunks.append(translated_chunk)
-            print(f'Progress: {(((i+1)/NUM_CHUNKS)*100):.2f}% of chunks translated.')
-        translated_text = "\n".join(translated_chunks)
-        return translated_text
-
-    def update_prompt_for_destination_language(self, destination_language):
-        self.prompt = self.supported_languages_instance.get_translation_prompt_for_destination(destination_language)
-
-    def translate_a_single(self, chunk):
+    def get_yml_quizzes_from_(self, current_chapter_text):
         try:
-            current_prompt = self.prompt + chunk
+            current_prompt = self.pre_prompt + current_chapter_text
             return self.get_response_from_OpenAI_API_with(current_prompt)
         except Exception as e:
             self.error_handler.handle_error(e)
-            return self.translate_a_single(chunk)
+            return self.get_yml_quizzes_from_(current_chapter_text)
 
     def get_response_from_OpenAI_API_with(self, current_prompt):
         response = openai.ChatCompletion.create(
@@ -52,38 +65,6 @@ class OpenaiTranslationModel:
             temperature=self.temperature
         )
         return response['choices'][0]['message']['content']
-
-
-class TextToTranslate():
-    def __init__(self, text_to_translate):
-        self.text_to_translate = text_to_translate
-        self.chunks = []
-        self.current_chunk = ""
-        self.encoding_name = "cl100k_base"
-        self.MAX_TOKENS = 750
-
-        self.create_chunks()
-
-    def create_chunks(self):
-        paragraphs = self.text_to_translate.splitlines()
-        for paragraph in paragraphs:
-            if self.can_add_another(paragraph):
-                self.current_chunk += paragraph + "\n"
-            else:
-                self.chunks.append(self.current_chunk.strip())
-                self.current_chunk = paragraph
-        if self.current_chunk:
-           self.chunks.append(self.current_chunk.strip())
-
-    def can_add_another(self, paragraph):
-        CHUNK_TOKENS = self.count_the_token_length_of(self.current_chunk)
-        PARAGRAPH_TOKENS = self.count_the_token_length_of(paragraph)
-        return CHUNK_TOKENS + PARAGRAPH_TOKENS <= self.MAX_TOKENS
-
-    def count_the_token_length_of(self, string):
-        encoding = tiktoken.get_encoding(self.encoding_name)
-        NUM_TOKENS = len(encoding.encode(string))
-        return NUM_TOKENS
 
 
 class APIErrorHandler:
