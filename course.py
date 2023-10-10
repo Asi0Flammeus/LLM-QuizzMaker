@@ -6,6 +6,7 @@ class Course:
         self.raw_course = raw_course
         self.polished_course = ""
         self.chapters = self.format_chapters()
+        print(len(self.chapters))
         self.current_chapter = ""
 
     def format_chapters(self):
@@ -19,7 +20,8 @@ class Course:
         self.remove_footer()
 
     def remove_header(self):
-        self.polished_course = self.raw_course.split('---')[2].strip()
+        header_pattern = re.compile(r'^---[\s\S]+?---\s*')
+        self.polished_course = re.sub(header_pattern, '', self.raw_course)
 
     def remove_introduction(self):
         self.polished_course = self.polished_course.split('+++')[1]
@@ -27,7 +29,6 @@ class Course:
     def remove_footer(self):
         footer_marker = "## Acknowledgments and keep digging the rabbit hole"
         self.polished_course = self.polished_course.split(footer_marker)[0]
-
 
     def create_chapters_dictionnary(self):
 

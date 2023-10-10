@@ -48,7 +48,7 @@ class Controller():
 
 
     def load_chapter(self):
-        self.course.current_chapter = self.course.chapters.pop(0)
+        self.course.current_chapter = self.course.chapters[self.index]
         self.current_chapter_text = self.course.current_chapter['text']
 
 
