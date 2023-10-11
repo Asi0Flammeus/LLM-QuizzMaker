@@ -40,10 +40,9 @@ class OpenaiQuizzMakerModel:
                 - Ensure every MCQ is distinct and directly tied to the chapter's content, designed specifically to enhance the student's comprehension and foster growth in the subject
                 - Hard questions can delve into highly technical aspects of the topic.
                 - Don't say according to the text.
+                - All questions must be different.
                 - Create only MCQs that can be answered with the provided chapter
-                - Don't use ":" in the question, answer, wrong_answer nor explaination as it may.
-                - Only write questions on the content of the chapter not about the chapter.
-                - The wrong answers and the answer should be structured all similarly or all differently.
+                - Don't use ":" in the question, answer, wrong_answer nor explanation.
                 - Use two empty lines to separate each quiz.
 
                 current_chapter_text = \n
