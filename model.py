@@ -42,6 +42,8 @@ class OpenaiQuizzMakerModel:
                 - Don't say according to the text.
                 - Create only MCQs that can be answered with the provided chapter
                 - Don't use ":" in the question, answer, wrong_answer nor explaination as it may.
+                - Only write questions on the content of the chapter not about the chapter.
+                - The wrong answers and the answer should be structured all similarly or all differently.
                 - Use two empty lines to separate each quiz.
 
                 current_chapter_text = \n
