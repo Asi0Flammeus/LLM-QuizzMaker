@@ -41,7 +41,8 @@ class OpenaiQuizzMakerModel:
                 - Hard questions can delve into highly technical aspects of the topic.
                 - Don't say according to the text.
                 - Create only MCQs that can be answered with the provided chapter
-                - Use "===" to separate each quiz.
+                - Don't use ":" in the question, answer, wrong_answer nor explaination as it may.
+                - Use two empty lines to separate each quiz.
 
                 current_chapter_text = \n
         """)

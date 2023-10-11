@@ -80,7 +80,7 @@ class Controller():
         self.reorganize_yml_properties()
 
     def split_quizzes(self):
-        self.yml_quizzes = self.yml_quizzes.split('===\n')
+        self.yml_quizzes = self.yml_quizzes.split('\n\n')
 
     def remove_unnecessary_newlines(self):
         self.yml_quizzes = [quiz.strip() for quiz in self.yml_quizzes if quiz.strip()]
@@ -89,6 +89,7 @@ class Controller():
         reorganised_quizzes = []
 
         for quiz_str in self.yml_quizzes:
+
             quiz = yaml.safe_load(quiz_str)
 
             reorganised_quiz = {
@@ -103,6 +104,7 @@ class Controller():
                 'answer': quiz['answer'],
                 'wrong_answers': quiz['wrong_answers'],
                 'explanation': quiz['explanation']
+                # add the review property set to false
             }
 
             reorganised_quiz_str = yaml.dump(reorganised_quiz, Dumper=MyDumper, sort_keys=False, default_flow_style=False)
