@@ -94,7 +94,7 @@ class Controller():
 
             reorganised_quiz = {
                 'course': self.input_subfolder_name,
-                'section': self.course.get_current_section_index(),
+                'part': self.course.get_current_section_index(),
                 'chapter': self.course.get_current_chapter_index(),
                 'difficulty': quiz['difficulty'],
                 'duration': quiz['duration'],
@@ -103,8 +103,8 @@ class Controller():
                 'question': quiz['question'],
                 'answer': quiz['answer'],
                 'wrong_answers': quiz['wrong_answers'],
-                'explanation': quiz['explanation']
-                # add the review property set to false
+                'explanation': quiz['explanation'],
+                'reviewed': False
             }
 
             reorganised_quiz_str = yaml.dump(reorganised_quiz, Dumper=MyDumper, sort_keys=False, default_flow_style=False)
@@ -114,7 +114,7 @@ class Controller():
             for i, line in enumerate(lines):
                 if line.startswith("explanation:"):
                     # Replace the start of the explanation
-                    lines[i] = "explanation: >-"
+                    lines[i] = "explanation: |"
                     # Extract the actual explanation content (without the key)
                     explanation_content = line[len("explanation: "):]
                     # Split it into lines (based on space separation)
