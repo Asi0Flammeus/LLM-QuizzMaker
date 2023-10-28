@@ -18,10 +18,10 @@ class OpenaiQuizzMakerModel:
         self.error_handler = APIErrorHandler()
 
         self.pre_prompt = ("""
-                    You MUST carefully craft 12 multiple-choice questions (MCQs) based strictly on the content of the provided chapter from a bitcoin-only lecture.
+                    You MUST carefully craft 9 multiple-choice questions (MCQs) based strictly on the content of the provided chapter from a bitcoin-only lecture.
                     Ensure the following:
 
-                    - Division into three difficulty tiers: easy, intermediate, and hard, with 4 MCQs in each tier.
+                    - Division into three difficulty tiers: hard, intermediate, easy, with 3 MCQs in each tier.
                     - Adherence to the template without code blocks:
                       difficulty: [level]
                       duration: [time in seconds, typically between 15-45]
