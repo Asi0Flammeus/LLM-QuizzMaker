@@ -2,6 +2,7 @@ from course import Course
 from model import OpenaiQuizzMakerModel
 from view import ViewCLI
 import os
+import re
 import time
 import yaml
 import textwrap
@@ -77,6 +78,7 @@ class Controller():
 
         self.split_quizzes()
         self.remove_unnecessary_newlines()
+        self.remove_unallowed_character()
         self.reorganize_yml_properties()
 
     def split_quizzes(self):
@@ -84,6 +86,23 @@ class Controller():
 
     def remove_unnecessary_newlines(self):
         self.yml_quizzes = [quiz.strip() for quiz in self.yml_quizzes if quiz.strip()]
+
+    def remove_unallowed_character(self):
+        for idx, quiz in enumerate(self.yml_quizzes):
+            lines = quiz.split('\n')
+            updated_lines = []
+
+            for line in lines:
+                if re.match(r'^\s*\w+\s*:', line):
+                    parts = line.split(':', 1)
+                    key_part = parts[0]
+                    value_part = parts[1].replace(':', ';')
+                    updated_line = key_part + ':' + value_part
+                else:
+                    updated_line = line.replace(':', ';')
+                updated_lines.append(updated_line)
+
+            self.yml_quizzes[idx] = '\n'.join(updated_lines)
 
     def reorganize_yml_properties(self):
         reorganised_quizzes = []

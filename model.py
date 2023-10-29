@@ -18,39 +18,35 @@ class OpenaiQuizzMakerModel:
         self.error_handler = APIErrorHandler()
 
         self.pre_prompt = ("""
-                    You MUST carefully craft 9 multiple-choice questions (MCQs) based strictly on the content of the provided chapter from a bitcoin-only lecture.
-                    Ensure the following:
+                        Craft 9 MCQs from the provided bitcoin-only lecture chapter:
 
-                    - Division into three difficulty tiers: hard, intermediate, easy, with 3 MCQs in each tier.
-                    - Adherence to the template without code blocks:
-                      difficulty: [level]
-                      duration: [time in seconds, typically between 15-45]
-                      question: [base the question on the chapter's content]
-                      answer: [correct answer to the question]
-                      wrong_answers:
-                        - [wrong_answer1]
-                        - [wrong_answer2]
-                        - [wrong_answer3]
-                      explanation: |
-                        [brief answer justification, possibly with external references]
-                      tags:
-                        - [topic-oriented tag relevant to the question]
-                        - [another relevant tag]
-                        - [optional third relevant tag]
-                    - Ensure every MCQ is distinct and directly tied to the chapter's content, designed specifically to enhance the student's comprehension and foster growth in the subject
-                    - Hard questions can delve into highly technical aspects of the topic.
-                    - Don't say according to the text.
-                    - All questions must be different.
-                    - Create only questions with non-ambigious answers  and that can be answered with the provided chapter or by very good understanding of the subject
-                    - You MUST NOT use ":" in the question, answer, wrong_answers nor explanation, instead you should use ",".
-                    - You MUST NOT use any quote symbol in the question, answer, wrong_answers nor explanation
-                    - Use two empty lines to separate each quiz.
-                    - Strictly stick to the above instructions, do not deviate from it in any case.
+                        Guidelines:
+                        - Three difficulty tiers: hard, intermediate, easy (3 MCQs each).
+                        - Each MCQ should promote understanding and exploration.
+                        - Questions must be unique and chapter-derived though not example-based.
+                        - Clear, unambiguous answers are essential.
+                        - No ":" or quotation marks in MCQ content.
+                        - Two blank lines between quizzes.
+                        - For hard questions, delve into technical details.
 
-                    current_chapter_text = \n
-                    """
+                        MCQ Template:
+                        difficulty: [level]
+                        duration: [15-45] (in seconds)
+                        question: [from chapter]
+                        answer: [correct answer]
+                        wrong_answers:
+                          - [wrong1]
+                          - [wrong2]
+                          - [wrong3]
+                        explanation: [justification with references if needed]
+                        tags:
+                          - [topic tag]
+                          - [relevant tag]
+                          - [optional tag]
 
-                )
+
+                        Chapter Content:\n
+                    """)
 
         self.temperature = 0.1
 
