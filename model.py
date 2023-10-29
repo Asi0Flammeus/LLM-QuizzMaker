@@ -41,7 +41,7 @@ class OpenaiQuizzMakerModel:
                     - Hard questions can delve into highly technical aspects of the topic.
                     - Don't say according to the text.
                     - All questions must be different.
-                    - Create only questions that are non-ambigious and that can be answered with the provided chapter
+                    - Create only questions with non-ambigious answers  and that can be answered with the provided chapter or by very good understanding of the subject
                     - You MUST NOT use ":" in the question, answer, wrong_answers nor explanation, instead you should use ",".
                     - You MUST NOT use any quote symbol in the question, answer, wrong_answers nor explanation
                     - Use two empty lines to separate each quiz.

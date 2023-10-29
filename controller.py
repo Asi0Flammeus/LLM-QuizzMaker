@@ -93,19 +93,19 @@ class Controller():
             quiz = yaml.safe_load(quiz_str)
 
             reorganised_quiz = {
-                'course': self.input_subfolder_name,
-                'part': self.course.get_current_section_index(),
-                'chapter': self.course.get_current_chapter_index(),
-                'difficulty': quiz['difficulty'],
-                'duration': quiz['duration'],
-                'author': 'DecouvreBitcoin',
-                'tags': quiz['tags'],
-                'question': quiz['question'],
-                'answer': quiz['answer'],
-                'wrong_answers': quiz['wrong_answers'],
-                'explanation': quiz['explanation'],
-                'reviewed': False
-            }
+                        'course': self.input_subfolder_name,
+                        'part': self.course.get_current_section_index(),
+                        'chapter': self.course.get_current_chapter_index(),
+                        'difficulty': quiz['difficulty'],
+                        'duration': quiz['duration'],
+                        'author': 'DecouvreBitcoin',
+                        'tags': quiz['tags'],
+                        'question': quiz['question'],
+                        'answer': quiz['answer'],
+                        'wrong_answers': quiz['wrong_answers'],
+                        'explanation': quiz['explanation'].strip(),  # strip any whitespace
+                        'reviewed': False
+                    }
 
             reorganised_quiz_str = yaml.dump(reorganised_quiz, Dumper=MyDumper, sort_keys=False, default_flow_style=False)
 
@@ -115,15 +115,15 @@ class Controller():
                 if line.startswith("explanation:"):
                     # Replace the start of the explanation
                     lines[i] = "explanation: |"
-                    # Extract the actual explanation content (without the key)
-                    explanation_content = line[len("explanation: "):]
+                    # Extract the actual explanation content (without the key) and strip quotes
+                    explanation_content = line[len("explanation: "):].strip("'")
                     # Split it into lines (based on space separation)
-                    wrapped_lines = textwrap.wrap(explanation_content, width=76) # assuming max width of 80 with 2 space indentation and ">- "
-                    # Add 2 spaces to every line of the explanation text and join it
+                    wrapped_lines = textwrap.wrap(explanation_content, width=76)
+                    # Add 2 spaces to every line of the explanation text and join them
                     indented_wrapped_lines = ['  ' + wl for wl in wrapped_lines]
                     # Replace the current line with the new formatted lines
                     lines[i] = lines[i] + '\n' + '\n'.join(indented_wrapped_lines)
-                    break  # Assuming there's only one "explanation" key per quiz
+                    break
 
             reorganised_quiz_str = '\n'.join(lines)
 
