@@ -1,5 +1,5 @@
 playground.py
-__pycache__
+__pycache__/
 .bashrc
 .bash_profile
 .env
