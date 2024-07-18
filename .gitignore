@@ -1,8 +1,9 @@
 playground.py
-__pycache__/
 .bashrc
 .bash_profile
 .env
 env/
 outputs/
 playground.py
+__pycache__/
+*.py[cod]
